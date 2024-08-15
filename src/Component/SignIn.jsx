@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Auth/ContextProvider';
 import { FaGoogle } from "react-icons/fa6";
-import axios from 'axios';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +13,6 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userRes = await axios.post('/login', { email, pin });
       await signIn(email, pin);
       toast.success("Sign In successfully!");
     } catch (error) {
@@ -32,12 +30,12 @@ const SignIn = () => {
     })
     .catch(e => toast.error(e.message))
 }
-
 useEffect(() => {
   if (user && !loading) {
     navigate('/');
   }
-}, [user, loading, navigate]);
+}, [user]);
+
 
 return (
   <div>

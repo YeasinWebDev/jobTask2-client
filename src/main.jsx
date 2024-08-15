@@ -10,20 +10,27 @@ import {
 import Home from './page/Home.jsx';
 import SignIn from './Component/SignIn.jsx';
 import SignUp from './Component/SignUp.jsx';
+import Root from './Root.jsx';
 import ContextProvider from './Auth/ContextProvider.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: '/signIn',
-    element: <SignIn />
-  },
-  {
-    path: '/signUp',
-    element: <SignUp />
+    element: <Root />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: '/signIn',
+        element: <SignIn />
+      },
+      {
+        path: '/signUp',
+        element: <SignUp />
+      }
+    ]
   }
 ]);
 
