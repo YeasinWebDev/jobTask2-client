@@ -12,6 +12,7 @@ import SignIn from './Component/SignIn.jsx';
 import SignUp from './Component/SignUp.jsx';
 import Root from './Root.jsx';
 import ContextProvider from './Auth/ContextProvider.jsx';
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ContextProvider>
       <RouterProvider router={router} />
+      <Toaster />
     </ContextProvider>
   </StrictMode>,
 )
