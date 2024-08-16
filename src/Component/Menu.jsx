@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import useAxiosCommon from '../Hooks/useAxiosCommon'
 import { TiDeleteOutline } from "react-icons/ti";
 import Card from './Card'
 import Loading from './Loading'
+import { AuthContext } from '../Auth/ContextProvider';
 
 function Menu() {
+    const { user } = useContext(AuthContext)
     const [data, setData] = useState(null)
     const [input, setInput] = useState('')
     const [inputText, setinputText] = useState("")
@@ -15,15 +17,18 @@ function Menu() {
     const [selectedBrand, setSelectedBrand] = useState('');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+    const [sortOption, setSortOption] = useState('');
     const axiosCommon = useAxiosCommon()
 
     const categories = ["Pizza", "Salad", "Desserts", "Burgers", "Appetizers", "Drinks", "Tacos", "Pasta", "Sandwiches", "Wraps"];
     const brandNames = ["Bella Italia", "Fresh Greens", "Sweet Delights", "Grill Masters", "Tropical Blends"];
 
+    console.log(user)
+
 
     const fetchData = async (page, filters = {}) => {
         setloading(true)
-        const result = await axiosCommon.post('/menu', filters, {
+        const result = await axiosCommon.post('/menu', { ...filters, sortOption }, {
             params: { page, limit: 9 },
         })
         setloading(false)
@@ -46,7 +51,7 @@ function Menu() {
     const handleSearch = async (e) => {
         setCurrentPage(1);
         setloading(true);
-        const result = await axiosCommon.post('/search', { name: input }, {
+        const result = await axiosCommon.post('/search', { name: input, sortOption }, {
             params: { page: 1, limit: 9 },
         });
         setloading(false);
@@ -76,9 +81,14 @@ function Menu() {
         setSelectedBrand('');
         setMinPrice('');
         setMaxPrice('');
+        setinputText('')
+        setSortOption('');
         setCurrentPage(1);
         fetchData(1);
     };
+    if(!user){
+        return <h1 className='font-semibold text-xl pt-20'>Please Sign In to Access <span className='text-orange-600 font-bold'>Menu</span></h1>
+    }
 
     return (
         <div>
@@ -119,6 +129,13 @@ function Menu() {
 
                 <input type="number" className='border-2 border-orange-500 rounded-lg px-3 py-2 outline-none font-semibold text-lg' placeholder="Min Price" onChange={e => setMinPrice(e.target.value)} value={minPrice} />
                 <input type="number" className='border-2 border-orange-500 rounded-lg px-3 py-2 outline-none font-semibold text-lg' placeholder="Max Price" onChange={e => setMaxPrice(e.target.value)} value={maxPrice} />
+
+                <select className='border-2 border-orange-500 rounded-lg px-3 py-2 outline-none font-semibold text-lg' onChange={e => setSortOption(e.target.value)} value={sortOption}>
+                    <option value="">Sort By</option>
+                    <option value="priceAsc">Price: Low to High</option>
+                    <option value="priceDesc">Price: High to Low</option>
+                    <option value="dateDesc">Date Added: Newest First</option>
+                </select>
 
                 <button className='text-white bg-orange-600 px-3 py-2 rounded-lg hover:bg-orange-800' onClick={applyFilters}>Apply Filters</button>
                 <button className='text-white bg-gray-600 px-3 py-2 rounded-lg hover:bg-gray-800' onClick={clearFilters}>Clear Filters</button>
