@@ -21,10 +21,8 @@ const SignIn = () => {
   };
 
   const googleSignIn = async () => {
-    console.log('click')
   logInByGoogle()
     .then(e => {
-      saveUser({ email: e.user?.email, name: e?.user?.displayName })
       navigate('/')
       toast.success('signUp succesfull')
     })
