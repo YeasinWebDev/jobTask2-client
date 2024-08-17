@@ -9,18 +9,18 @@
 ### Foodi is a full-stack application that allows users to browse food products with functionalities like pagination, searching, categorization, and sorting. This repository handles the frontend part of the project, built using React.
 Features
 
-    Product Display: View a list of products with details like image, name, description, price, category, ratings, and creation date.
-    Pagination: Navigate through multiple pages of products.
-    Search: Search for products by name.
-    Categorization: Filter products by brand name, category, and price range.
-    Sorting: Sort products by price (low to high, high to low) and date added (newest first).
+    * Product Display: View a list of products with details like image, name, description, price, category, ratings, and creation date.
+    * Pagination: Navigate through multiple pages of products.
+    * Search: Search for products by name.
+    * Categorization: Filter products by brand name, category, and price range.
+    * Sorting: Sort products by price (low to high, high to low) and date added (newest first).
 
 ## Tech Stack
 
-    React: Frontend library for building user interfaces.
-    Axios: Promise-based HTTP client for making API requests.
-    React Router: Library for handling routing in React applications.
-    CSS/SCSS: For styling the application.
+    * React: Frontend library for building user interfaces.
+    * Axios: Promise-based HTTP client for making API requests.
+    * React Router: Library for handling routing in React applications.
+    * CSS/SCSS: For styling the application.
 
 ## Getting Started
 ## Prerequisites
